@@ -2,11 +2,12 @@ let fromApi = moment('2018-10-13 23:00:00');
 getDifferrentTimer(this.fromApi)
 
 
-
 function getDifferrentTimer(finishTime) {
     let timeObject;
     let now;
-    setInterval(() => {
+    let intervalId;
+    let retturnString;
+    intervalId = setInterval(() => {
         now = moment();
         this.duration = moment.duration(finishTime.diff(now));
         timeObject = {
@@ -14,7 +15,12 @@ function getDifferrentTimer(finishTime) {
             minutes: this.duration._data.minutes,
             seconds: this.duration._data.minutes
         };
-        console.log(`${getZero(timeObject.hours)}:${getZero(timeObject.minutes)}`);
+        retturnString = `${getZero(timeObject.hours)}:${getZero(timeObject.minutes)}`
+        console.log(retturnString);
+        if (retturnString === '00:00') {
+            clearInterval(intervalId);
+        }
+
     }, 1000);
 
     function getZero(value) {
